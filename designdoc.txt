@@ -1,0 +1,9 @@
+GOAL:
+
+basic raycaster with camera movement 
+ncurses tui rendering 
+
+IMPLEMENTATIONS:
+
+user input from ncurses api
+math (fun) from scratch
