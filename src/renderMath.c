@@ -8,27 +8,27 @@ double rayCollisonDist(char **map, double cameraX, double cameraY, double rayAng
   const double cameraYInit = cameraY;
 
   double horiXOffset, horiYOffset, horiHypo;
-  double veriXOffset, vertYOffset, veriHypo;
+  double vertXOffset, vertYOffset, vertHypo;
 
-  while(!(map[floor(cameraX)][floor(cameraY)]))
+  while(!(map[(int)floor(cameraX)][(int)floor(cameraY)]))
   {
     horiXOffset = 1.0f - (cameraX - floor(cameraX));
     horiYOffset = tan(rayAngle) * horiXOffset;
     horiHypo = sqrt(horiXOffset * horiXOffset + horiYOffset * horiYOffset);
 
-    veriYOffset = 1.0f - (cameraY - floor(cameraY));
-    veriXOffset = tan(rayAngle) * veriYOffset;
-    veriHypo = sqrt(veriXOffset * veriXOffset + veriYOffset * veriYOffset);
+    vertYOffset = 1.0f - (cameraY - floor(cameraY));
+    vertXOffset = tan(rayAngle) * vertYOffset;
+    vertHypo = sqrt(vertXOffset * vertXOffset + vertYOffset * vertYOffset);
 
-    if(horiHypo > veriHypo)
+    if(horiHypo > vertHypo)
     {
       cameraX += horiXOffset;
       cameraY += horiYOffset;
     }
     else
     {
-      cameraX += veriXOffset;
-      cameraY += veriYOffset;
+      cameraX += vertXOffset;
+      cameraY += vertYOffset;
     }
   }
 
