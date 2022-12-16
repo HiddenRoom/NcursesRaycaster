@@ -32,5 +32,5 @@ double rayCollisonDist(char **map, double cameraX, double cameraY, double rayAng
     }
   }
 
-  return sqrt(cameraX * cameraX + cameraY * cameraY);
+  return sqrt(pow(fabs(cameraXInit - cameraX), 2) + pow(fabs(cameraYInit - cameraY), 2));
 }
