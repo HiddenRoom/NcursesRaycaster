@@ -1,8 +1,9 @@
 #include "include/renderMath.h"
 
 #include <math.h>
+#include <stdio.h>
  
-double rayCollisonDist(char **map, double cameraX, double cameraY, double rayAngle)
+double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, double rayAngle)
 {
   const double cameraXInit = cameraX;
   const double cameraYInit = cameraY;
@@ -10,7 +11,7 @@ double rayCollisonDist(char **map, double cameraX, double cameraY, double rayAng
   double horiXOffset, horiYOffset, horiHypo;
   double vertXOffset, vertYOffset, vertHypo;
 
-  while(!(map[(int)floor(cameraX)][(int)floor(cameraY)]))
+  while((cameraX < mapXSize && cameraY < mapYSize) && !(map[(int)floor(cameraX)][(int)floor(cameraY)]))
   {
     horiXOffset = 1.0f - (cameraX - floor(cameraX));
     horiYOffset = tan(rayAngle) * horiXOffset;
@@ -31,6 +32,8 @@ double rayCollisonDist(char **map, double cameraX, double cameraY, double rayAng
       cameraY += vertYOffset;
     }
   }
+  
+  printf("final x %lf final y %lf\n", cameraX, cameraY);
 
   return sqrt(pow(fabs(cameraXInit - cameraX), 2) + pow(fabs(cameraYInit - cameraY), 2));
 }
