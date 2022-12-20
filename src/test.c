@@ -3,7 +3,7 @@
 
 #include "include/renderMath.h"
 
-#define TEST_ANGLE 90.0f
+#define TEST_ANGLE (3.14159f * 0.25f)
 #define TEST_X 1.0f
 #define TEST_Y 1.0f
 
