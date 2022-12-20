@@ -14,11 +14,11 @@ double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double c
   while((cameraX < mapXSize && cameraY < mapYSize) && !(map[(int)floor(cameraX)][(int)floor(cameraY)]))
   {
     horiXOffset = 1.0f - (cameraX - floor(cameraX));
-    horiYOffset = tan(rayAngle) * horiXOffset;
+    horiYOffset = round(tan(rayAngle) * horiXOffset);
     horiHypo = sqrt(horiXOffset * horiXOffset + horiYOffset * horiYOffset);
 
     vertYOffset = 1.0f - (cameraY - floor(cameraY));
-    vertXOffset = tan(rayAngle) * vertYOffset;
+    vertXOffset = round(tan(rayAngle) * vertYOffset);
     vertHypo = sqrt(vertXOffset * vertXOffset + vertYOffset * vertYOffset);
 
     if(horiHypo > vertHypo)
