@@ -12,12 +12,12 @@ double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double c
 
   while((cameraX < mapXSize && cameraY < mapYSize) && !(map[(int)floor(cameraX)][(int)floor(cameraY)]))
   {
-    horiXOffset = 1.0f - (cameraX - floor(cameraX));
-    horiYOffset = tan((M_PI / 2) - rayAngle) * horiXOffset;
+    horiXOffset = 1.0 - (cameraX - floor(cameraX));
+    horiYOffset = tan((M_PI / 2.0) - rayAngle) * horiXOffset;
     horiHypo = sqrt(horiXOffset * horiXOffset + horiYOffset * horiYOffset);
 
-    vertYOffset = 1.0f - (cameraY - floor(cameraY));
-    vertXOffset = tan((M_PI / 2) - rayAngle) * vertYOffset;
+    vertYOffset = 1.0 - (cameraY - floor(cameraY));
+    vertXOffset = tan((M_PI / 2.0) - rayAngle) * vertYOffset;
     vertHypo = sqrt(vertXOffset * vertXOffset + vertYOffset * vertYOffset);
 
     if(horiHypo > vertHypo)
@@ -32,5 +32,5 @@ double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double c
     }
   }
 
-  return sqrt(pow(fabs(cameraXInit - cameraX), 2) + pow(fabs(cameraYInit - cameraY), 2));
+  return sqrt(pow(fabs(cameraXInit - cameraX), 2.0) + pow(fabs(cameraYInit - cameraY), 2.0));
 }

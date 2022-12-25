@@ -3,9 +3,9 @@
 
 #include "include/renderMath.h"
 
-#define TEST_ANGLE (3.14159f * 0.25f)
-#define TEST_X 1.0f
-#define TEST_Y 1.0f
+#define TEST_ANGLE (M_PI * 0.25)
+#define TEST_X 1.0
+#define TEST_Y 1.0
 
 #define MAP_X_SIZE 5
 #define MAP_Y_SIZE 6
@@ -46,9 +46,10 @@ int main(void)
       {
         printf("O");
       }
-
     }
   }
+
+  printf("\n");
 
   for(i = 0; i < MAP_X_SIZE; i++)
   {
