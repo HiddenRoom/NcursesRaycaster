@@ -4,11 +4,11 @@
 
 #include "include/renderMath.h"
 
-#define TEST_ANGLE (M_PI * 0.25)
-#define TEST_X 1.0
-#define TEST_Y 1.0
+#define TEST_ANGLE (M_PI / 3.0)
+#define TEST_X 2.0
+#define TEST_Y 2.0
 
-#define MAP_X_SIZE 5
+#define MAP_X_SIZE 6
 #define MAP_Y_SIZE 6
 
 int main(void)
