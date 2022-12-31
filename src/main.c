@@ -52,6 +52,7 @@ int main(void)
   /* ncurses boilerplate */
   initscr();
   raw();
+  noecho();
   WINDOW *win = newwin(LINES, COLS, 0, 0);
 
   while(1)
