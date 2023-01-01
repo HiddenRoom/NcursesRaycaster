@@ -1,7 +1,6 @@
 #include "include/renderMath.h"
 
 #include <math.h>
-#include <stdio.h>
  
 double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, double rayAngle)
 {
@@ -70,8 +69,6 @@ double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double c
       cameraX += vertXOffset * /* xMultiplier */ yMultiplier;
       cameraY += vertYOffset * yMultiplier;
     }
-
-    printf("camX %lf camY %lf\n", cameraX, cameraY);
   }
 
   return sqrt(pow(fabs(cameraXInit - cameraX), 2.0) + pow(fabs(cameraYInit - cameraY), 2.0));
