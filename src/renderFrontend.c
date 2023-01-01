@@ -4,7 +4,7 @@
 #include <ncurses.h>
 #include <math.h>
 
-#define WALL_HEIGHT(winYSize, rayCollisonDist) (int)((double)winYSize * (4 / rayCollisonDist))
+#define WALL_HEIGHT(winYSize, rayCollisonDist) ((int)fmin(/*(double)winYSize * (4 / rayCollisonDist)*/rayCollisonDist, winYSize))
 #define SMALL_STEP 0.2
 
 /* raysTmp used to avoid repeated dynamic mem alloc */
@@ -56,11 +56,11 @@ void handleUserInput(double *rays, int rayNum, double *cameraX, double *cameraY,
       break;
     case 'h' :
       for(i = 0; i < rayNum; i++)
-        _addClampedToUnitCircle(rays + i, SMALL_STEP / 2);
+        _addClampedToUnitCircle(rays + i, -SMALL_STEP / 2);
       break;
     case 'l' :
       for(i = 0; i < rayNum; i++)
-        _addClampedToUnitCircle(rays + i, -SMALL_STEP / 2);
+        _addClampedToUnitCircle(rays + i, SMALL_STEP / 2);
       break;
   }
 
