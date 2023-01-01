@@ -18,8 +18,9 @@
 int main(void)
 {
   int i, j;
+  int input;
 
-  unsigned char **map = malloc(sizeof(char *) * MAP_X_SIZE);
+  unsigned char **map = malloc(sizeof(unsigned char *) * MAP_X_SIZE);
 
   /* set up map that is a box of dimensions MAP_X_SIZE x MAP_Y_SIZE */
   for(i = 0; i < MAP_X_SIZE; i++)
@@ -55,13 +56,19 @@ int main(void)
   raw();
   noecho();
 
-  while(1)
+  do
   {
     clear();
     drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, dummyArray, stdscr, LINES, COLS);
     refresh();
-    handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, getch());
-  }
+    input = getch();
+    handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, input);
+  } while(input != 'q');
+
+  endwin();
+
+  free(dummyArray);
+  free(rays);
 
   return 0;
 }
