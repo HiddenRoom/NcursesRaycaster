@@ -23,6 +23,7 @@ int main(void)
   initscr();
   raw();
   noecho();
+  curs_set(0);
 
   /* set up map that is a box of dimensions MAP_X_SIZE x MAP_Y_SIZE */
   for(i = 0; i < MAP_X_SIZE; i++)
@@ -63,6 +64,7 @@ int main(void)
     handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, input);
   } while(input != 'q');
 
+  curs_set(1);
   endwin();
 
   free(dummyArray);
