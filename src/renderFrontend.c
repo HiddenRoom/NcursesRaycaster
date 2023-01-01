@@ -49,10 +49,10 @@ void handleUserInput(double *rays, int rayNum, double *cameraX, double *cameraY,
       *cameraX -= SMALL_STEP;
       break;
     case 's' :
-      *cameraY += SMALL_STEP;
+      *cameraY -= SMALL_STEP;
       break;
     case 'd' :
-      *cameraY += SMALL_STEP;
+      *cameraX += SMALL_STEP;
       break;
     case 'h' :
       for(i = 0; i < rayNum; i++)
