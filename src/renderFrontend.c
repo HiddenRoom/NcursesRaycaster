@@ -8,7 +8,7 @@
 #define SMALL_STEP 0.2
 
 /* raysTmp used to avoid repeated dynamic mem alloc */
-void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, const double *rays, double *raysTmp, WINDOW *win, int winYSize, int winXSize) /* rays size should be winXSize */
+void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, const double *rays, double *raysTmp, WINDOW *win, int winXSize, int winYSize) /* rays size should be winXSize */
 {
   int i, j;
 

@@ -12,15 +12,17 @@
 #define MAP_X_SIZE 30
 #define MAP_Y_SIZE 30
 
-#define LINES 20
-#define COLS 20
-
 int main(void)
 {
   int i, j;
   int input;
 
   unsigned char **map = malloc(sizeof(unsigned char *) * MAP_X_SIZE);
+
+  /* ncurses boilerplate up here to use LINES and COLS later */
+  initscr();
+  raw();
+  noecho();
 
   /* set up map that is a box of dimensions MAP_X_SIZE x MAP_Y_SIZE */
   for(i = 0; i < MAP_X_SIZE; i++)
@@ -51,15 +53,11 @@ int main(void)
   for(i = 0; i < COLS; i++)
     rays[i] = (i + 1) * fovChunk;
 
-  /* ncurses boilerplate */
-  initscr();
-  raw();
-  noecho();
 
   do
   {
     clear();
-    drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, dummyArray, stdscr, LINES, COLS);
+    drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, dummyArray, stdscr, COLS, LINES);
     refresh();
     input = getch();
     handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, input);
