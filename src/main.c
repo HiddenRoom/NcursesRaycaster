@@ -39,6 +39,7 @@ int main(void)
   }
 
   double *rays = malloc(sizeof(double) * COLS);
+  double *dummyArray = malloc(sizeof(double) * COLS);
 
   const double fov = 2.4;
   const double fovChunk = fov / COLS;
@@ -57,9 +58,9 @@ int main(void)
   while(1)
   {
     clear();
-    drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, stdscr, LINES, COLS);
+    drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, dummyArray, stdscr, LINES, COLS);
     refresh();
-    handleUserInput(rays, COLS, &cameraX, &cameraY, getch());
+    handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, getch());
   }
 
   return 0;

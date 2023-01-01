@@ -3,18 +3,16 @@
 
 #include <ncurses.h>
 #include <math.h>
-#include <stdlib.h>
-#include <string.h>
 
 #define WALL_HEIGHT(winYSize, rayCollisonDist) (int)((double)winYSize * (4 / rayCollisonDist))
+#define SMALL_STEP 0.2
 
-void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, double rays[], WINDOW *win, int winYSize, int winXSize) /* rays size should be winXSize */
+/* raysTmp used to avoid repeated dynamic mem alloc */
+void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, const double *rays, double *raysTmp, WINDOW *win, int winYSize, int winXSize) /* rays size should be winXSize */
 {
   int i, j;
 
   int screenRayOffset;
-
-  double *raysTmp = malloc(sizeof(double) * winXSize);
 
   for(i = 0; i < winXSize; i++)
   {
@@ -26,11 +24,9 @@ void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX
       mvwprintw(win, j, i, "X");
     }
   }
-
-  free(raysTmp);
 }
 
-void addClamped(double *val, double toAdd)
+void _addClampedToUnitCircle(double *val, double toAdd)
 {
   if(*val + toAdd > 2 * M_PI)
     *val = (*val + toAdd) - 2 * M_PI;
@@ -40,31 +36,41 @@ void addClamped(double *val, double toAdd)
     *val += toAdd;
 }
 
-void handleUserInput(double *rays, int rayNum, double *cameraX, double *cameraY, int input)
+void handleUserInput(double *rays, int rayNum, double *cameraX, double *cameraY, int mapXSize, int mapYSize, int input)
 {
   int i;
 
   switch(input)
   {
     case 'w' :
-      *cameraY += 0.2;
+      *cameraY += SMALL_STEP;
       break;
     case 'a' :
-      *cameraX -= 0.2;
+      *cameraX -= SMALL_STEP;
       break;
     case 's' :
-      *cameraX += 0.2;
+      *cameraY += SMALL_STEP;
       break;
     case 'd' :
-      *cameraY -= 0.2;
+      *cameraY += SMALL_STEP;
       break;
     case 'h' :
       for(i = 0; i < rayNum; i++)
-        addClamped(rays + i, 0.1);
+        _addClampedToUnitCircle(rays + i, SMALL_STEP / 2);
       break;
     case 'l' :
       for(i = 0; i < rayNum; i++)
-        addClamped(rays + i, -0.1);
+        _addClampedToUnitCircle(rays + i, -SMALL_STEP / 2);
       break;
   }
+
+  if(*cameraX < 0.0)
+    *cameraX += SMALL_STEP;
+  else if(*cameraX > (double)mapXSize)
+    *cameraX -= SMALL_STEP;
+
+  if(*cameraY < 0.0)
+    *cameraY += SMALL_STEP;
+  else if(*cameraY > (double)mapYSize)
+    *cameraY -= SMALL_STEP;
 }
