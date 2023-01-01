@@ -53,12 +53,11 @@ int main(void)
   initscr();
   raw();
   noecho();
-  WINDOW *win = newwin(LINES, COLS, 0, 0);
 
   while(1)
   {
     clear();
-    drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, win, LINES, COLS);
+    drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, stdscr, LINES, COLS);
     refresh();
     handleUserInput(rays, COLS, &cameraX, &cameraY, getch());
   }

@@ -3,6 +3,8 @@
 
 #include <ncurses.h>
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define WALL_HEIGHT(winYSize, rayCollisonDist) (int)((double)winYSize * (4 / rayCollisonDist))
 
@@ -12,16 +14,20 @@ void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX
 
   int screenRayOffset;
 
+  double *raysTmp = malloc(sizeof(double) * winXSize);
+
   for(i = 0; i < winXSize; i++)
   {
-    rays[i] = rayCollisonDist(map, mapXSize, mapYSize, cameraX, cameraY, rays[i]);
-    screenRayOffset = (int)((winYSize - WALL_HEIGHT(winYSize, rays[i])) / 2); /* amount leftover at top and bottom of drawn intersection */
+    raysTmp[i] = rayCollisonDist(map, mapXSize, mapYSize, cameraX, cameraY, rays[i]);
+    screenRayOffset = (int)((winYSize - WALL_HEIGHT(winYSize, raysTmp[i])) / 2); /* amount leftover at top and bottom of drawn intersection */
 
     for(j = screenRayOffset; j < winYSize - screenRayOffset; j++)
     {
-      mvwprintw(win, j, i, "█");
+      mvwprintw(win, j, i, "X");
     }
   }
+
+  free(raysTmp);
 }
 
 void addClamped(double *val, double toAdd)
