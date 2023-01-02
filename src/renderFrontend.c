@@ -36,19 +36,21 @@ void _addClampedToUnitCircle(double *val, double toAdd)
     *val += toAdd;
 }
 
-void handleUserInput(double *rays, int rayNum, double *cameraX, double *cameraY, int mapXSize, int mapYSize, int input)
+void handleUserInput(unsigned char **map, double *rays, int rayNum, double *cameraX, double *cameraY, int mapXSize, int mapYSize, int input)
 {
   int i;
+
+  double deltaX, deltaY;
 
   switch(input)
   {
     case 'w' :
-      *cameraY += SMALL_STEP * sin(rays[(int)(rayNum / 2)]);
-      *cameraX += SMALL_STEP * cos(rays[(int)(rayNum / 2)]);
+      deltaX = SMALL_STEP * cos(rays[(int)(rayNum / 2)]);
+      deltaY = SMALL_STEP * sin(rays[(int)(rayNum / 2)]);
       break;
     case 's' :
-      *cameraY -= SMALL_STEP * sin(rays[(int)(rayNum / 2)]);
-      *cameraX -= SMALL_STEP * cos(rays[(int)(rayNum / 2)]);
+      deltaX = -(SMALL_STEP * cos(rays[(int)(rayNum / 2)]));
+      deltaY = -(SMALL_STEP * sin(rays[(int)(rayNum / 2)]));
       break;
     case 'a' :
       for(i = 0; i < rayNum; i++)
@@ -60,13 +62,14 @@ void handleUserInput(double *rays, int rayNum, double *cameraX, double *cameraY,
       break;
   }
 
-  if(*cameraX < 0.0)
-    *cameraX += SMALL_STEP;
-  else if(*cameraX > (double)mapXSize)
-    *cameraX -= SMALL_STEP;
+  *cameraX += deltaX;
+  *cameraY += deltaY;
 
-  if(*cameraY < 0.0)
-    *cameraY += SMALL_STEP;
-  else if(*cameraY > (double)mapYSize)
-    *cameraY -= SMALL_STEP;
+  if(*cameraX < 0.0 || *cameraX > (double)mapXSize 
+     || *cameraY < 0.0 || *cameraY > (double)mapYSize
+     || map[(int)floor(*cameraX)][(int)floor(*cameraY)])
+  {
+    *cameraX -= deltaX;
+    *cameraY -= deltaY;
+  }
 }

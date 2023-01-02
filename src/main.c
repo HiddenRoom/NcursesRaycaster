@@ -70,7 +70,7 @@ int main(void)
     //mvwprintw(stdscr, LINES - 8, 4, "X: %lf\nY: %lf\nMain view angle: %lf\n", cameraX, cameraY, rays[(int)(COLS / 2)]);
     refresh();
     input = getch();
-    handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, input);
+    handleUserInput(map, rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, input);
   } while(input != 'q');
 
   curs_set(1);
