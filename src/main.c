@@ -42,6 +42,14 @@ int main(void)
     }
   }
 
+  for(i = 12; i < 16; i++)
+  {
+    for(j = 12; j < 16; j++)
+    {
+      map[i][j] = 1;
+    }
+  }
+
   double *rays = malloc(sizeof(double) * COLS);
   double *dummyArray = malloc(sizeof(double) * COLS);
 
@@ -59,6 +67,7 @@ int main(void)
   {
     clear();
     drawCamView(map, MAP_X_SIZE, MAP_Y_SIZE, cameraX, cameraY, rays, dummyArray, stdscr, COLS, LINES);
+    //mvwprintw(stdscr, LINES - 8, 4, "X: %lf\nY: %lf\nMain view angle: %lf\n", cameraX, cameraY, rays[(int)(COLS / 2)]);
     refresh();
     input = getch();
     handleUserInput(rays, COLS, &cameraX, &cameraY, MAP_X_SIZE, MAP_Y_SIZE, input);
