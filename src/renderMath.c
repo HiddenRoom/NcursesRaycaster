@@ -38,7 +38,7 @@ double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double c
     xRound = ceil;
     yRound = ceil;
   }
-  else if(rayAngle < 2.0 * M_PI) /* no else at the end for increased clarity */
+  else /* catches all other */
   {
     xMultiplier = 1.0;
     yMultiplier = -1.0;
