@@ -62,11 +62,11 @@ double rayCollisonDist(unsigned char **map, int mapXSize, int mapYSize, double c
     if(horiHypo < vertHypo)
     {
       cameraX += horiXOffset * xMultiplier;
-      cameraY += horiYOffset * /* yMultiplier */ xMultiplier;
+      cameraY += horiYOffset * xMultiplier;
     }
     else
     {
-      cameraX += vertXOffset * /* xMultiplier */ yMultiplier;
+      cameraX += vertXOffset * yMultiplier;
       cameraY += vertYOffset * yMultiplier;
     }
   }
