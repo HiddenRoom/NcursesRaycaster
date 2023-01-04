@@ -4,8 +4,9 @@
 #include <ncurses.h>
 #include <math.h>
 
-#define WALL_HEIGHT(winYSize, rayCollisonDist) ((int)((double)winYSize * (4 / rayCollisonDist)))
+#define WALL_HEIGHT(winYSize, rayCollisonDist) ((double)winYSize * (4 / rayCollisonDist))
 #define SMALL_STEP 0.2
+#define PALETTE_SIZE 5
 
 /* raysTmp used to avoid repeated dynamic mem alloc */
 void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX, double cameraY, const double *rays, double *raysTmp, WINDOW *win, int winXSize, int winYSize) /* rays size should be winXSize */
@@ -14,6 +15,8 @@ void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX
 
   int screenRayOffset;
 
+  const char charPalette[PALETTE_SIZE] = { '$', '@', 'B', '8', '&' };
+
   for(i = 0; i < winXSize; i++)
   {
     raysTmp[i] = rayCollisonDist(map, mapXSize, mapYSize, cameraX, cameraY, rays[i]);
@@ -21,7 +24,7 @@ void drawCamView(unsigned char **map, int mapXSize, int mapYSize, double cameraX
 
     for(j = screenRayOffset; j < winYSize - screenRayOffset; j++)
     {
-      mvwprintw(win, j, i, "X");
+      mvwprintw(win, j, i, "%c", charPalette[(int)((PALETTE_SIZE + 1) * (atan(4.0 / (mapXSize + mapYSize) * WALL_HEIGHT(winYSize, raysTmp[i])) / M_PI_2) - 1)]);
     }
   }
 }
